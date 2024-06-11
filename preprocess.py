@@ -27,7 +27,7 @@ def reformat_data(data):
     return event_group.agg(agg_funcs)
 
 
-def get_codes(path='data/Data Definitions_2024-05-08_SRS.xlsx', sheet='10 Code Event (Sub)Type Map'):
+def get_subtype_codes(path='data/Data Definitions_2024-05-08_SRS.xlsx', sheet='10 Code Event (Sub)Type Map'):
     """Get event subtype codes"""
     codes_df = pd.read_excel(path, sheet_name=sheet)
     codes = codes_df['Grouped_Event_Subtype_Code_Desc'].str.split().map(lambda x: x[0])
@@ -35,6 +35,14 @@ def get_codes(path='data/Data Definitions_2024-05-08_SRS.xlsx', sheet='10 Code E
     # TODO: should X99 be removed?
     return set(codes)
 
+
+def get_type_codes(path='data/Data Definitions_2024-05-08_SRS.xlsx', sheet='10 Code Event (Sub)Type Map'):
+    """Get event type code desc"""
+    codes_df = pd.read_excel(path, sheet_name=sheet)
+    codes = codes_df['Grouped_Event_Type_Code_Desc'].str.split().map(lambda x: x[0])
+
+    # TODO: should X99 be removed?
+    return set(codes)
 
 if __name__ == "__main__":
     data = read_encrypted_data()
